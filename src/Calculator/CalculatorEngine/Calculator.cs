@@ -1,4 +1,4 @@
-﻿namespace CalculatorEngine.Components;
+﻿namespace CalculatorEngine;
 
 public class Calculator
 {
@@ -62,7 +62,7 @@ public class Calculator
 
     public Result Multiply()
     {
-        reutrn answer;
+        return answer;
     }
 
     public Result Add()

@@ -1,4 +1,4 @@
-﻿namespace CalculatorEngine.Components;
+﻿namespace CalculatorEngine;
 
 public class Result
 {
