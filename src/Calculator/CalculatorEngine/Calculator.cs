@@ -7,10 +7,11 @@ public class Calculator
 
     Result answer = new Result();
 
+    //Converts string input to a double. Input A is stored in numA, Input B is stored in numB
     public Result setInput(int fieldNumber, string value)
     {
         //reseting answer object to empty values
-        clearAnswer();
+        ClearAnswer();
         
         if (fieldNumber > 2 || fieldNumber < 1)
         {
@@ -38,7 +39,8 @@ public class Calculator
             
     }
 
-    private void clearAnswer()
+    //Utility function to clear data between function calls
+    private void ClearAnswer()
     {
         answer.ErrorMessage = "";
         answer.Operation = "";
@@ -48,7 +50,7 @@ public class Calculator
 
     public Result Divide()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " / " + numB + " = ";
 
@@ -69,7 +71,7 @@ public class Calculator
 
     public Result Multiply()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " * " + numB + " = ";
         answer.OperationResult = (numA * numB).ToString();
@@ -80,7 +82,7 @@ public class Calculator
 
     public Result Add()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " + " + numB + " = ";
         answer.OperationResult = (numA + numB).ToString();
@@ -91,7 +93,7 @@ public class Calculator
 
     public Result Subtract()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " - " + numB + " = ";
         answer.OperationResult = (numA - numB).ToString();
@@ -102,7 +104,7 @@ public class Calculator
 
     public Result Equals()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " = " + numB + "?";
         
@@ -110,7 +112,7 @@ public class Calculator
         var absoluteValueOfDiff = Math.Abs(numA - numB);
         var isWithinTolerance = absoluteValueOfDiff <= tolerance;
 
-        answer.OperationResult = (isWithinTolerance) ? "True" : "False";
+        answer.OperationResult = (isWithinTolerance) ? "1" : "0";
         
         answer.IsSuccess = true;
         return answer;
@@ -118,7 +120,7 @@ public class Calculator
     
     public Result Power()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " ^ " + numB + " = ";
         answer.OperationResult = (Math.Pow(numA,numB)).ToString();
@@ -129,9 +131,9 @@ public class Calculator
     
     public Result Log()
     {
-        clearAnswer();
+        ClearAnswer();
         
-        answer.Operation = " Log " + numA + " base " + numB + " = ";
+        answer.Operation = numA + " log " + numB + " = ";
 
         if (numA <= 0)
         {
@@ -154,7 +156,7 @@ public class Calculator
     
     public Result Root()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + " root " + numB + " = ";
 
@@ -174,7 +176,7 @@ public class Calculator
     
     public Result Factorial()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = numA + "! " + " = ";
 
@@ -202,7 +204,7 @@ public class Calculator
 
     public Result Sin()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = "Sin(" + numA +  ") = ";
             
@@ -214,7 +216,7 @@ public class Calculator
     
     public Result Cos()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = "Cos(" + numA +  ") = ";
         
@@ -226,7 +228,7 @@ public class Calculator
     
     public Result Tan()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = "Tan(" + numA +  ") = ";
             
@@ -238,7 +240,7 @@ public class Calculator
     
     public Result Reciprocal()
     {
-        clearAnswer();
+        ClearAnswer();
         
         answer.Operation = "1 / " + numA + " = ";
 
