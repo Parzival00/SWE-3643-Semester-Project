@@ -104,13 +104,13 @@ public class Calculator
     {
         clearAnswer();
         
-        answer.Operation = numA + " = " + numB + "?";
+        answer.Operation = numA + " == " + numB + " = ";
         
         var tolerance = Math.Pow(10, -8);
         var absoluteValueOfDiff = Math.Abs(numA - numB);
         var isWithinTolerance = absoluteValueOfDiff <= tolerance;
 
-        answer.OperationResult = (isWithinTolerance) ? "True" : "False";
+        answer.OperationResult = (isWithinTolerance) ? "1" : "0";
         
         answer.IsSuccess = true;
         return answer;
@@ -131,7 +131,7 @@ public class Calculator
     {
         clearAnswer();
         
-        answer.Operation = " Log " + numA + " base " + numB + " = ";
+        answer.Operation = numA + " log " + numB + " = ";
 
         if (numA <= 0)
         {
@@ -165,7 +165,7 @@ public class Calculator
         }
         else
         {
-            answer.OperationResult = (Math.Pow(numA, 1/numB)).ToString();
+            answer.OperationResult = (Math.Pow(numA, (1.0/numB))).ToString();
             answer.IsSuccess = true;
         }
 
