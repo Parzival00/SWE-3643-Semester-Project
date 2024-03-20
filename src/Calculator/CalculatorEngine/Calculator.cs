@@ -124,6 +124,32 @@ public class Calculator
 
     public Result Equals()
     {
+        try
+        {
+            ParseTwoNumbers();
+            answer.Operation = InputA + " - " + InputB + " = ";
+            answer.IsSuccess = true;
+        }
+        catch(Exception e)
+        {
+            answer.ErrorMessage = e.Message;
+            answer.OperationResult = "Not a Number";
+            answer.IsSuccess = false;
+        }
+        
+        var tolerance = Math.Pow(10, -8);
+        var absoluteValueOfDiff = Math.Abs(numA - numB);
+        var isWithinTolerance = absoluteValueOfDiff <= tolerance;
+        
+        if (isWithinTolerance)
+        {
+            answer.OperationResult = "1";
+        }
+        else
+        {
+            answer.OperationResult = "1";
+        }
+        
         return answer;
     }
     
