@@ -2,67 +2,66 @@
 
 public class Calculator
 {
-    public string InputA { get; set; }
-    public string InputB { get; set; }
-
     private double numA;
     private double numB;
 
-    
     Result answer = new Result();
-    
-    private void ParseOneNumber()
+
+    public Result setInput(int fieldNumber, string value)
     {
+        //reseting answer object to empty values
+        clearAnswer();
+        
+        if (fieldNumber > 2 || fieldNumber < 1)
+        {
+            answer.ErrorMessage = "Field number must be 1 or 2.";
+            answer.IsSuccess = false;
+            return answer;
+        }
+        
         try
         {
-            numA = double.Parse(InputA);
+            if (fieldNumber == 1)
+                numA = double.Parse(value);
+            else
+                numB = double.Parse(value);
+            answer.IsSuccess = true;
+            
+            return answer;
         }
         catch (Exception e)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Invalid input, number only.";
+            answer.ErrorMessage = "Invalid input, numbers only.";
+            answer.IsSuccess = false;
+            return answer;
         }
+            
     }
 
-    private void ParseTwoNumbers()
+    private void clearAnswer()
     {
-        try
-        {
-            numA = double.Parse(InputA);
-            numB = double.Parse((InputB));
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Invalid input, number only.";
-        }
+        answer.ErrorMessage = "";
+        answer.Operation = "";
+        answer.OperationResult = "";
+        answer.IsSuccess = false;
     }
-    
+
     public Result Divide()
     {
-        try
-        {
-            ParseTwoNumbers();
-                
-            answer.Operation = InputA + " / " + InputB + " = ";
+        clearAnswer();
+        
+        answer.Operation = numA + " / " + numB + " = ";
 
-            if (numB == 0)
-            {
-                answer.OperationResult = "Not a Number";
-                answer.IsSuccess = false;
-            }
-
-            else
-            {
-                answer.OperationResult = (numA / numB).ToString();
-                answer.IsSuccess = true;
-            }
-        }
-        catch (Exception e)
+        if (numB == 0)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
+            answer.ErrorMessage = "Not a Number";
             answer.IsSuccess = false;
+        }
+
+        else
+        {
+            answer.OperationResult = (numA / numB).ToString();
+            answer.IsSuccess = true;
         }
 
         return answer;
@@ -70,293 +69,190 @@ public class Calculator
 
     public Result Multiply()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " * " + InputB + " = ";
-            answer.OperationResult = (numA * numB).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = numA + " * " + numB + " = ";
+        answer.OperationResult = (numA * numB).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
 
     public Result Add()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " + " + InputB + " = ";
-            answer.OperationResult = (numA + numB).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = numA + " + " + numB + " = ";
+        answer.OperationResult = (numA + numB).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
 
     public Result Subtract()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " - " + InputB + " = ";
-            answer.OperationResult = (numA - numB).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = numA + " - " + numB + " = ";
+        answer.OperationResult = (numA - numB).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
 
     public Result Equals()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " - " + InputB + " = ";
-            answer.IsSuccess = true;
-        }
-        catch(Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = numA + " = " + numB + "?";
         
         var tolerance = Math.Pow(10, -8);
         var absoluteValueOfDiff = Math.Abs(numA - numB);
         var isWithinTolerance = absoluteValueOfDiff <= tolerance;
+
+        answer.OperationResult = (isWithinTolerance) ? "True" : "False";
         
-        if (isWithinTolerance)
-        {
-            answer.OperationResult = "1";
-        }
-        else
-        {
-            answer.OperationResult = "1";
-        }
-        
+        answer.IsSuccess = true;
         return answer;
     }
     
     public Result Power()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " ^ " + InputB + " = ";
-            answer.OperationResult = (Math.Pow(numA,numB)).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = numA + " ^ " + numB + " = ";
+        answer.OperationResult = (Math.Pow(numA,numB)).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
     
     public Result Log()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " Log " + InputB + " = ";
+        clearAnswer();
+        
+        answer.Operation = " Log " + numA + " base " + numB + " = ";
 
-            if (numA <= 0)
-            {
-                answer.OperationResult = "Num A must be greater than 0";
-                answer.IsSuccess = false;
-            }
-            else if (numB == 0)
-            {
-                answer.OperationResult = "Num B must be non-zero";
-                answer.IsSuccess = false;
-            }
-            else
-            {
-                answer.OperationResult = (numA * Math.Log(numB)).ToString();
-                answer.IsSuccess = true;
-            }
-        }
-        catch (Exception e)
+        if (numA <= 0)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
+            answer.ErrorMessage = "Input A must be greater than 0";
             answer.IsSuccess = false;
         }
+        else if (numB == 0)
+        {
+            answer.ErrorMessage = "Input B must be non-zero";
+            answer.IsSuccess = false;
+        }
+        else
+        {
+            answer.OperationResult = (Math.Log(numA, numB)).ToString();
+            answer.IsSuccess = true;
+        }
+
         return answer;
     }
     
     public Result Root()
     {
-        try
-        {
-            ParseTwoNumbers();
-            answer.Operation = InputA + " root " + InputB + " = ";
+        clearAnswer();
+        
+        answer.Operation = numA + " root " + numB + " = ";
 
-            if (numB == 0)
-            {
-                answer.OperationResult = "Num B must be non-zero";
-                answer.IsSuccess = false;
-            }
-            else
-            {
-                answer.OperationResult = (Math.Pow(numA, 1/numB)).ToString();
-                answer.IsSuccess = true;
-            }
-        }
-        catch (Exception e)
+        if (numB == 0)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
+            answer.ErrorMessage = "Input B must be non-zero";
             answer.IsSuccess = false;
         }
+        else
+        {
+            answer.OperationResult = (Math.Pow(numA, 1/numB)).ToString();
+            answer.IsSuccess = true;
+        }
+
         return answer;
     }
     
     public Result Factorial()
     {
-        try
-        {
-            ParseOneNumber();
-            answer.Operation = InputA + "! " + " = ";
+        clearAnswer();
+        
+        answer.Operation = numA + "! " + " = ";
 
-            if (numA == 0)
-            {
-                answer.OperationResult = "1";
-                answer.IsSuccess = true;
-            }
-            else
-            {
-                //we need to see how to accommodate for decimal numbers
-                
-                if (numA < 0)
-                {
-                    int solution = GetFactorial((int)numA);
-                    solution = -solution;
-                    answer.OperationResult = solution.ToString();
-                }
-                else
-                {
-                    answer.OperationResult = GetFactorial((int) numA).ToString();
-                }
-                answer.IsSuccess = true;
-            }
-        }
-        catch (Exception e)
+        if (numA == 0)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
+            answer.OperationResult = "1";
+            answer.IsSuccess = true;
         }
+        else
+        {
+            //we need to see how to accommodate for decimal numbers
+            int solution = 1;
+            for(int i = Math.Abs((int)numA); i > 0; i--) 
+                solution *= i;
+            
+            if (numA < 0)
+                solution = -solution;
+ 
+            answer.OperationResult = solution.ToString();
+            answer.IsSuccess = true;
+        }
+
         return answer;
     }
 
-    public int GetFactorial(int num)
-    {
-        int solution = 1;
-        for(int i = Math.Abs(num); i > 0; i--) 
-            solution *= i;
-        return solution;
-    }
-    
     public Result Sin()
     {
-        try
-        {
-            ParseOneNumber();
-            answer.Operation = "Sin(" + InputA +  ") = ";
+        clearAnswer();
+        
+        answer.Operation = "Sin(" + numA +  ") = ";
             
-            answer.OperationResult = (Math.Sin(numA)).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        answer.OperationResult = (Math.Sin(numA)).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
     
     public Result Cos()
     {
-        try
-        {
-            ParseOneNumber();
-            answer.Operation = "Cos(" + InputA +  ") = ";
-            
-            answer.OperationResult = (Math.Cos(numA)).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        clearAnswer();
+        
+        answer.Operation = "Cos(" + numA +  ") = ";
+        
+        answer.OperationResult = (Math.Cos(numA)).ToString();
+        answer.IsSuccess = true;
+ 
         return answer;
     }
     
     public Result Tan()
     {
-        try
-        {
-            ParseOneNumber();
-            answer.Operation = "Tan(" + InputA +  ") = ";
+        clearAnswer();
+        
+        answer.Operation = "Tan(" + numA +  ") = ";
             
-            answer.OperationResult = (Math.Tan(numA)).ToString();
-            answer.IsSuccess = true;
-        }
-        catch (Exception e)
-        {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
-            answer.IsSuccess = false;
-        }
+        answer.OperationResult = (Math.Tan(numA)).ToString();
+        answer.IsSuccess = true;
+
         return answer;
     }
     
     public Result Reciprocal()
     {
-        try
-        {
-            ParseOneNumber();
-            answer.Operation = "1 / " + InputA + " = ";
+        clearAnswer();
+        
+        answer.Operation = "1 / " + numA + " = ";
 
-            if (numA == 0)
-            {
-                answer.OperationResult = "Num A must be non-zero";
-                answer.IsSuccess = false;
-            }
-            else
-            {
-                answer.OperationResult = (1/numA).ToString();
-                answer.IsSuccess = true;
-            }
-        }
-        catch (Exception e)
+        if (numA == 0)
         {
-            answer.ErrorMessage = e.Message;
-            answer.OperationResult = "Not a Number";
+            answer.ErrorMessage = "Num A must be non-zero";
             answer.IsSuccess = false;
         }
+        else
+        {
+            answer.OperationResult = (1/numA).ToString();
+            answer.IsSuccess = true;
+        }
+
         return answer;
     }
 }
