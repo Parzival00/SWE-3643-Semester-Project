@@ -1,7 +1,30 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<PageTitle>Calculator</PageTitle>
+<body style="background-color: #eef1f5 ">
+    <div class="container align-content-center" style="width:600px; align-content:center; background-color: white; padding: 10px; display: grid" >
+        <div>
+            <h1 style="padding: 10px;">
+                Calculator <button style="border-radius: 4px; float: right;margin-left: -50%;margin-top: 2%; height: 30px;width: 220px;font-size: 16px; border: 1px solid black">Clear</button>
+            </h1>
+        </div>
+        <div style="background-color: #FFECD7; height: 60px; width: 95%; margin: auto; text-align: center; padding: 15px">
+            <b>Enter value(s) below and select an operation.</b>
+        </div>
+        
+        <div style="display: table">
+            <div style="padding: 10px; float: left; display: table-cell; width: 50%">
+                <label> <b>Input A</b></label>
+                <br/>
+                <input type="text" name="Number 1" value=""/>
+            </div>
+            <div style="padding: 10px; float: right; display: table-cell; width: 50%">
+                <label> <b>Input B</b></label>
+                <br/>
+                <input type="text" name="Number 1" value=""/>
+            </div>  
+        </div>
+        
+        
+    </div>
+</body>
